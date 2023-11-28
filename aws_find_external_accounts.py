@@ -16,13 +16,13 @@ def get_roles_assumable_by_external_accounts(session, known_accounts):
         for statement in statements:
             if statement["Effect"] == "Allow" and "AWS" in statement["Principal"]:
                 aws_account = statement["Principal"]["AWS"]
-                if isinstance(aws_account, list):
+                if isinstance(aws_account, list): 
                     for account in aws_account:
-                        if not account.startswith("arn:aws:iam"):
+                        if not account.startswith("arn:aws:iam"): #Avoid Role IDS AROA...
                             continue
 
                         accountn = account.split(":")[4]
-                        if current_account != accountn:
+                        if current_account != accountn: # Exclude the account itself
                             if role_name not in assumable_roles:
                                 assumable_roles[role_name] = {"known": [], "unknown": []}
                             
@@ -31,11 +31,11 @@ def get_roles_assumable_by_external_accounts(session, known_accounts):
                             else:
                                 assumable_roles[role_name]["unknown"].append(accountn)
                 else:
-                    if not aws_account.startswith("arn:aws:iam"):
+                    if not aws_account.startswith("arn:aws:iam"): #Avoid Role IDS AROA...
                         continue
 
                     accountn = aws_account.split(":")[4]
-                    if current_account != accountn:
+                    if current_account != accountn: # Exclude the account itself
                         if role_name not in assumable_roles:
                             assumable_roles[role_name] = {"known": [], "unknown": []}
                         
