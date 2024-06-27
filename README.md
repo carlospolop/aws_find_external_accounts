@@ -1,3 +1,7 @@
+# This functionality was added to https://github.com/carlospolop/aws_iam_review
+
+Check that tool if you want a more complete IAM review
+
 # AWS Find External Accounts
 
 This script allows to help you finding external AWS accounts that have access to roles inside the account of the indicated profile.
